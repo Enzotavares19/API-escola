@@ -1,0 +1,16 @@
+# Config com dados sensíveis (credenciais do banco)
+config.php
+
+# Dependências
+/vendor/
+/node_modules/
+
+# Logs e temporários
+*.log
+*.cache
+.DS_Store
+
+# Arquivos de editor/IDE
+.vscode/
+.idea/
+*.swp
