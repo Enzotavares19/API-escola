@@ -1,7 +1,4 @@
 <?php
-// Copie este arquivo para "config.php" e preencha com os dados do seu banco.
-//   cp config.example.php config.php
-
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'escola');
 define('DB_USER', 'root');
