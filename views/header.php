@@ -140,8 +140,17 @@
             <a href="index.php?acao=professor"><span class="icon"></span> Lançar Notas</a>
             
             <p class="menu-label">Visão dos Alunos</p>
-            <a href="index.php?acao=aluno&id=1"><span class="icon"></span> Gabriel Kumagai</a>
-            <a href="index.php?acao=aluno&id=2"><span class="icon"></span> Ana Julia</a>
+<?php
+require_once __DIR__ . '/../config/Database.php';
+$_db = new Database();
+$_stmt = $_db->getConnection()->query(
+    "SELECT id, nome FROM usuarios WHERE perfil = 'aluno' ORDER BY nome"
+);
+foreach ($_stmt->fetchAll(PDO::FETCH_ASSOC) as $_aluno): ?>
+    <a href="index.php?acao=aluno&id=<?= $_aluno['id'] ?>">
+        <span class="icon">🎓</span> <?= htmlspecialchars($_aluno['nome']) ?>
+    </a>
+<?php endforeach; ?>
         </div>
         
     </div>

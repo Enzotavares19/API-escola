@@ -1,0 +1,219 @@
+openapi: 3.0.3
+
+info:
+  title: API Escola
+  description: API REST para gerenciamento de alunos do sistema EduTech.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost/sistema_escolar/api
+    description: Servidor local (XAMPP/Docker)
+
+tags:
+  - name: Alunos
+    description: Operações de CRUD de alunos
+
+paths:
+  /alunos.php:
+    get:
+      tags: [Alunos]
+      summary: Lista alunos ou busca um por id
+      parameters:
+        - name: id
+          in: query
+          required: false
+          description: Id do aluno
+          schema:
+            type: integer
+            example: 9
+      responses:
+        '200':
+          description: Aluno(s) encontrado(s)
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: array
+                    items:
+                      $ref: '#/components/schemas/Aluno'
+                  - $ref: '#/components/schemas/Aluno'
+        '404':
+          $ref: '#/components/responses/NaoEncontrado'
+
+    post:
+      tags: [Alunos]
+      summary: Cria um novo aluno
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlunoEntrada'
+      responses:
+        '201':
+          description: Aluno criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlunoCriado'
+        '422':
+          $ref: '#/components/responses/DadosInvalidos'
+        '500':
+          $ref: '#/components/responses/ErroInterno'
+
+    put:
+      tags: [Alunos]
+      summary: Atualiza um aluno existente
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Id do aluno a atualizar
+          schema:
+            type: integer
+            example: 9
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlunoAtualizacao'
+      responses:
+        '200':
+          description: Aluno atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+        '400':
+          $ref: '#/components/responses/IdNaoInformado'
+        '404':
+          $ref: '#/components/responses/NaoEncontrado'
+        '422':
+          $ref: '#/components/responses/DadosInvalidos'
+        '500':
+          $ref: '#/components/responses/ErroInterno'
+
+    delete:
+      tags: [Alunos]
+      summary: Remove um aluno e seu histórico
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Id do aluno a remover
+          schema:
+            type: integer
+            example: 9
+      responses:
+        '200':
+          description: Aluno removido com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mensagem'
+        '400':
+          $ref: '#/components/responses/IdNaoInformado'
+        '404':
+          $ref: '#/components/responses/NaoEncontrado'
+
+components:
+  schemas:
+    Aluno:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 9
+        nome:
+          type: string
+          example: João Silva
+        email:
+          type: string
+          format: email
+          example: joao@escola.com
+
+    AlunoEntrada:
+      type: object
+      required: [nome, email, senha]
+      properties:
+        nome:
+          type: string
+          maxLength: 100
+          example: João Silva
+        email:
+          type: string
+          format: email
+          example: joao@escola.com
+        senha:
+          type: string
+          format: password
+          example: "123456"
+
+    AlunoAtualizacao:
+      type: object
+      required: [nome, email]
+      properties:
+        nome:
+          type: string
+          maxLength: 100
+          example: João Silva Atualizado
+        email:
+          type: string
+          format: email
+          example: joao@escola.com
+        senha:
+          type: string
+          format: password
+          description: Deixe em branco para manter a senha atual
+          example: "nova_senha"
+
+    AlunoCriado:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 11
+        mensagem:
+          type: string
+          example: Aluno criado
+
+    Mensagem:
+      type: object
+      properties:
+        mensagem:
+          type: string
+          example: Aluno atualizado
+
+    Erro:
+      type: object
+      properties:
+        erro:
+          type: string
+          example: Aluno não encontrado
+
+  responses:
+    NaoEncontrado:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erro'
+    DadosInvalidos:
+      description: Dados obrigatórios ausentes ou inválidos
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erro'
+    IdNaoInformado:
+      description: Id não informado na URL
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erro'
+    ErroInterno:
+      description: Erro interno do servidor
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erro'
