@@ -35,7 +35,7 @@
         </tbody>
     </table>
 </div>
-    </div> <!-- Fecha a div main-content aberta no header.php -->
-</div> <!-- Fecha a div app-wrapper aberta no header.php -->
+    </div> 
+</div> 
 </body>
 </html>

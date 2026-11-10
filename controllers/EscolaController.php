@@ -34,6 +34,29 @@ class EscolaController {
             exit;
         }
     }
+    
+    public function formEditarAluno() {
+        $id = $_GET['id'];
+        $aluno = $this->alunoModel->getAlunoById($id);
+        require_once 'views/header.php';
+        require_once 'views/form_edita_aluno.php';
+    }
+    
+    public function atualizarAluno() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->alunoModel->atualizarAluno($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['senha']);
+            header("Location: index.php?acao=dashboard&msg=aluno_atualizado");
+            exit;
+        }
+    }
+    
+    public function excluirAluno() {
+        if (isset($_GET['id'])) {
+            $this->alunoModel->excluirAluno($_GET['id']);
+            header("Location: index.php?acao=dashboard&msg=aluno_excluido");
+            exit;
+        }
+    }
 
     public function dashboardProfessor() {
         $alunos = $this->professorModel->getDesempenhoTodosAlunos();

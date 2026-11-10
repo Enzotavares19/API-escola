@@ -13,8 +13,39 @@ class AlunoModel {
         return $stmt->execute();
     }
 
+    public function getAlunoById($id) {
+        $query = "SELECT id, nome, email FROM usuarios WHERE id = :id AND perfil = 'aluno'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function atualizarAluno($id, $nome, $email, $senha = null) {
+        if (!empty($senha)) {
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            $query = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':senha', $senhaHash);
+        } else {
+            $query = "UPDATE usuarios SET nome = :nome, email = :email WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+        }
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    public function excluirAluno($id) {
+        $this->conn->prepare("DELETE FROM intervencoes WHERE aluno_id = :id")->execute([':id' => $id]);
+        $this->conn->prepare("DELETE FROM desempenho WHERE aluno_id = :id")->execute([':id' => $id]);
+        $stmt = $this->conn->prepare("DELETE FROM usuarios WHERE id = :id");
+        return $stmt->execute([':id' => $id]);
+    }
+
     public function getMonitoramentoAlunos() {
-        $query = "SELECT u.id, u.nome, d.disciplina, d.nota, d.faltas FROM usuarios u LEFT JOIN desempenho d ON u.id = d.aluno_id WHERE u.perfil = 'aluno'";
+        $query = "SELECT u.id, u.nome, u.email, d.disciplina, d.nota, d.faltas FROM usuarios u LEFT JOIN desempenho d ON u.id = d.aluno_id WHERE u.perfil = 'aluno'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -32,7 +63,7 @@ class AlunoModel {
     }
 
     public function getDadosAluno($aluno_id) {
-        $query = "SELECT u.nome, d.disciplina, d.nota, d.faltas FROM usuarios u LEFT JOIN desempenho d ON u.id = d.aluno_id WHERE u.id = :id";
+        $query = "SELECT u.nome, d.disciplina, d.nota, d.faltas FROM usuarios u LEFT JOIN desempenho d ON u.id = d.aluno_id WHERE u.id = :id AND u.perfil = 'aluno'";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $aluno_id);
         $stmt->execute();

@@ -26,7 +26,7 @@
                     <td><strong><?= $aluno['disciplina'] ? htmlspecialchars($aluno['nota']) : '-' ?></strong></td>
                     <td><?= $aluno['disciplina'] ? htmlspecialchars($aluno['faltas']) : '-' ?></td>
                     <td style="text-align: right;">
-                        <a href="index.php?acao=editar_nota&id=<?= $aluno['aluno_id'] ?>" class="btn btn-primary">✏️ Lançar / Atualizar</a>
+                        <a href="index.php?acao=editar_nota&id=<?= $aluno['aluno_id'] ?>" class="btn btn-primary">Lançar / Atualizar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -5,7 +5,7 @@
     </div>
     <div>
         <a href="index.php?acao=dashboard" class="btn btn-outline" style="margin-right: 10px;">Voltar</a>
-        <a href="index.php?acao=intervir&id=<?= htmlspecialchars($aluno_id) ?>" class="btn btn-primary">➕ Nova Ação</a>
+        <a href="index.php?acao=intervir&id=<?= htmlspecialchars($aluno_id) ?>" class="btn btn-primary">Nova Ação</a>
     </div>
 </div>
 <div class="card">

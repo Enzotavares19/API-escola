@@ -21,12 +21,10 @@
 
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); margin: 0; color: var(--text-main); }
         
-        /* 1. O CHECKBOX INVISÍVEL QUE CONTROLA O MENU */
         #menu-toggle { display: none; }
         
         .app-wrapper { display: flex; width: 100%; min-height: 100vh; }
         
-        /* === MENU LATERAL (ESTADO ABERTO) === */
         .sidebar { 
             width: 260px; 
             background-color: var(--dark); 
@@ -45,7 +43,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* O BOTÃO QUE ABRE/FECHA (Disfarçado de botão Dashboard) */
         .menu-btn { 
             cursor: pointer; 
             color: white; 
@@ -63,7 +60,6 @@
         .menu-btn:hover { background-color: #4338ca; }
         .menu-btn .icon { font-size: 20px; }
 
-        /* A DIV COM OS OUTROS LINKS */
         .menu-items {
             display: flex;
             flex-direction: column;
@@ -85,24 +81,18 @@
         }
         .sidebar a:hover { background-color: var(--dark-lighter); color: white; border-left: 4px solid var(--primary); padding-left: 16px; }
         
-        /* === MENU LATERAL (ESTADO FECHADO) === */
-        /* Reduz a largura do menu para caber só o ícone */
         #menu-toggle:checked ~ .app-wrapper .sidebar { width: 75px; }
         
-        /* Esconde o texto da palavra "Dashboard" do botão */
         #menu-toggle:checked ~ .app-wrapper .menu-btn .link-text { display: none; }
         
-        /* ESCONDE TODO O RESTO DO MENU (Links de professores, alunos, etc) */
         #menu-toggle:checked ~ .app-wrapper .menu-items { 
             opacity: 0; 
             visibility: hidden; 
             height: 0;
         }
         
-        /* Centraliza o botão quando fechado */
         #menu-toggle:checked ~ .app-wrapper .sidebar-header { padding: 20px 15px; }
 
-        /* === CONTEÚDO PRINCIPAL === */
         .main-content { flex: 1; padding: 40px; box-sizing: border-box; background-color: var(--bg-color); min-width: 0;}
         
         .cabecalho-pagina { margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
@@ -130,34 +120,30 @@
 </head>
 <body>
 
-<!-- 2. O CHECKBOX DEVE FICAR AQUI, LOGO APÓS O BODY -->
 <input type="checkbox" id="menu-toggle">
 
 <div class="app-wrapper">
     <div class="sidebar">
         
         <div class="sidebar-header">
-            <!-- 3. O BOTÃO DE DASHBOARD QUE ABRE/FECHA A BARRA -->
             <label for="menu-toggle" class="menu-btn" title="Alternar Menu">
                 <span class="icon">📊</span>
                 <span class="link-text">Dashboard</span>
             </label>
         </div>
         
-        <!-- 4. TODOS OS OUTROS ITENS SOMEM QUANDO FECHA -->
         <div class="menu-items">
-            <a href="index.php?acao=dashboard"><span class="icon">📈</span> Monitoramento</a>
-            <a href="index.php?acao=novo_aluno"><span class="icon">➕</span> Cadastrar Aluno</a>
+            <a href="index.php?acao=dashboard"><span class="icon"></span> Monitoramento</a>
+            <a href="index.php?acao=novo_aluno"><span class="icon"></span> Cadastrar Aluno</a>
             
             <p class="menu-label">Corpo Docente</p>
-            <a href="index.php?acao=professor"><span class="icon">👨‍🏫</span> Lançar Notas</a>
+            <a href="index.php?acao=professor"><span class="icon"></span> Lançar Notas</a>
             
             <p class="menu-label">Visão dos Alunos</p>
-            <a href="index.php?acao=aluno&id=1"><span class="icon">🎓</span> Gabriel Kumagai</a>
-            <a href="index.php?acao=aluno&id=2"><span class="icon">🎓</span> Ana Julia</a>
+            <a href="index.php?acao=aluno&id=1"><span class="icon"></span> Gabriel Kumagai</a>
+            <a href="index.php?acao=aluno&id=2"><span class="icon"></span> Ana Julia</a>
         </div>
         
     </div>
 
-    <!-- O CONTEÚDO DA PÁGINA (Tabelas e Forms) SERÁ RENDERIZADO AQUI DENTRO -->
     <div class="main-content">

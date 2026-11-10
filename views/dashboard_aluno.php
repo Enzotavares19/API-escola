@@ -25,9 +25,9 @@
                         <td><?= htmlspecialchars($b['faltas']) ?> faltas</td>
                         <td>
                             <?php if($b['faltas'] >= 15 || $b['nota'] < 5): ?>
-                                <span style="color: var(--danger); font-weight: 600; display: flex; align-items: center; gap: 5px;">⚠️ Por favor, procure a coordenação.</span>
+                                <span style="color: var(--danger); font-weight: 600; display: flex; align-items: center; gap: 5px;">Por favor, procure a coordenação.</span>
                             <?php else: ?>
-                                <span style="color: var(--success); font-weight: 600; display: flex; align-items: center; gap: 5px;">✅ Desempenho adequado. Parabéns!</span>
+                                <span style="color: var(--success); font-weight: 600; display: flex; align-items: center; gap: 5px;">Desempenho adequado</span>
                             <?php endif; ?>
                         </td>
                     </tr>
