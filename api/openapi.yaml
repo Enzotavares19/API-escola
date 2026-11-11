@@ -6,8 +6,8 @@ info:
   version: 1.0.0
 
 servers:
-  - url: http://localhost/API-escola-main/api
-    description: Servidor local (XAMPP)
+  - url: http://localhost/sistema_escolar/api
+    description: Servidor local (XAMPP/Docker)
 
 tags:
   - name: Alunos
